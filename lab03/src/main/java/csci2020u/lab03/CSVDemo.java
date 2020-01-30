@@ -1,4 +1,4 @@
-package csci2020.lab03;
+package csci2020u.lab03;
 import java.io.*;
 import org.apache.commons.csv.*;
 public class CSVDemo {
@@ -9,10 +9,11 @@ public class CSVDemo {
 			for (CSVRecord record: records) {
 				String lastName = record.get("Last Name");
 				String firstName = record.get("First Name");
-				String grade = record.get("Grade");System.out.println(firstName + " " + lastName+ "("+ grade + ")");
+				String grade = record.get("Grade");
+				System.out.println(firstName + " " + lastName+ "("+ grade + ")");
 			}
-		} catch (IOException e) {
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
-     }
+	}
 }
