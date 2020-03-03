@@ -21,12 +21,15 @@ public class lab05 extends Application {
         TableColumn<StudentRecord, String> SIDCol = new TableColumn("SID");
         SIDCol.setMinWidth(100);
         SIDCol.setCellValueFactory(new PropertyValueFactory<>("SID"));
+
         TableColumn<StudentRecord, Double> assignmentCol = new TableColumn("Assignment");
         assignmentCol.setMinWidth(100);
         assignmentCol.setCellValueFactory(new PropertyValueFactory<>("Assignment"));
+
         TableColumn<StudentRecord, Double> midtermCol = new TableColumn("Midterm");
         midtermCol.setMinWidth(100);
         midtermCol.setCellValueFactory(new PropertyValueFactory<>("Midterm"));
+
         TableColumn<StudentRecord, Double> finalExamCol = new TableColumn("FinalExam");
         finalExamCol.setMinWidth(100);
         finalExamCol.setCellValueFactory(new PropertyValueFactory<>("FinalExam"));

@@ -57,11 +57,11 @@ public class InvestmentValueCalculator extends Application {
                 // collect values from the textfields and convert them into a double to run calculations
                 double invAmount = Double.parseDouble(investmentAmount.getText());
                 double intRate = (Double.parseDouble(interestRate.getText())/100);
-                double yrs = Double.parseDouble(years.getText());
+                double yrs = (Double.parseDouble(years.getText()));
                 // set the significant digits to 2 decimal places to signify cents
                 DecimalFormat df = new DecimalFormat("#.##");
                 // calculate future value
-                double ftrValue = (invAmount * (Math.pow(1 + intRate,yrs)));
+                double ftrValue = (invAmount * (Math.pow(1 + intRate/12,yrs*12)));
                 // format significant digits
                 String ftr = df.format(ftrValue);
                 // output future value
