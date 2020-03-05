@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -12,6 +14,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
@@ -22,7 +26,7 @@ public class Charts extends Application {
     private static double[] avgCommercialPricesByYear = {1121585.3,1219479.5,1246354.2,1295364.8,1335932.6,1472362.0,1583521.9,1613246.3};
     private static String[] ageGroups = {"18-25", "26-35", "36-45", "46-55", "56-65", "65+"};
     private static int[] purchasesByAgeGroup = {648, 1021, 2453, 3173, 1868, 2247};
-    //private static Color[] pieColours = {Color.AQUA, Color.GOLD, Color.DARKORANGE,Color.DARKSALMON, Color.LAWNGREEN, Color.PLUM};
+    private static Color[] pieColours = {Color.AQUA, Color.GOLD, Color.DARKORANGE,Color.DARKSALMON, Color.LAWNGREEN, Color.PLUM};
 
     public static void main(String[] args) {
         launch(args);
@@ -32,7 +36,9 @@ public class Charts extends Application {
     @Override
     public void start(Stage window) throws Exception {
         GridPane root = new GridPane();
-        Scene scene = new Scene(root, 900, 500);
+        Scene scene = new Scene(root, 800, 500);
+        final Canvas canvas = new Canvas(200,200);
+        GraphicsContext gc2 = canvas.getGraphicsContext2D();
 
         root.getStylesheets().add(getClass().getResource("charts.css").toExternalForm());
 
@@ -70,30 +76,28 @@ public class Charts extends Application {
         //end of barchart
 
         //start of circlechart
-        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
-        for (int j = 0 ; j < 6 ; j++) {
-            data.add(new PieChart.Data(ageGroups[j], purchasesByAgeGroup[j]));
+        double checkPoint = 0.00;
+        double  sum = 0;
+        for (int j =0; j < purchasesByAgeGroup.length; j++) {
+            sum += purchasesByAgeGroup[j];
         }
-        PieChart circleChart = new PieChart(data);
-        data.get(0).getNode().setStyle("-fx-pie-color: -fx-aqua");
-        data.get(1).getNode().setStyle("-fx-pie-color: -fx-gold");
-        data.get(2).getNode().setStyle("-fx-pie-color: -fx-darkorange");
-        data.get(3).getNode().setStyle("-fx-pie-color: -fx-darksalmon");
-        data.get(4).getNode().setStyle("-fx-pie-color: -fx-lawngreen");
-        data.get(5).getNode().setStyle("-fx-pie-color: -fx-plum");
-        circleChart.setLegendVisible(false);
-        circleChart.setClockwise(false);
-        //end of circlechart
+        for (int k =0; k < ageGroups.length; k++) {
+            gc2.setFill(pieColours[k]);
+            gc2.fillArc(0, 0, 150, 150, checkPoint, 1*(360/sum)*purchasesByAgeGroup[k], ArcType.ROUND);
+            checkPoint += 1*(360/sum)*purchasesByAgeGroup[k];
+        }
+
 
         root.setHgap(10);
         root.setVgap(10);
 
         root.setConstraints(barChart, 0, 0);
-        root.setConstraints(circleChart, 1, 0);
+        root.setConstraints(canvas, 4, 0);
+        //root.setConstraints(arc6, 1, 0);
         root.setConstraints(barLegend, 0, 1);
         root.setConstraints(circleLegend, 1, 1);
 
-        root.getChildren().addAll(barChart,barLegend,circleChart,circleLegend);
+        root.getChildren().addAll(barChart,barLegend,canvas,circleLegend);
 
         window.setScene(scene);
         window.setTitle("Charts for Lab06");
