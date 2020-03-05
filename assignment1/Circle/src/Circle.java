@@ -227,6 +227,8 @@ public class Circle extends Application {
     public double[] distance(double s1s, double s1sy, double s1e, double s1ey, double s2s, double s2sy,
                                   double s2e, double s2ey, double s3s, double s3sy, double s3e, double s3ey){
 
+        // function is given coordinates of all the starting / ending of sides of the triangle which it uses to calculate
+        // the distances of each line to be used to calculate the angles
         double aLen = Math.sqrt(Math.pow(Math.abs(s1s-s1e),2)
                 +Math.pow(Math.abs(s1sy-s1ey),2));
 
