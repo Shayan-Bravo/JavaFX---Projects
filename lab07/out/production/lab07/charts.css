@@ -1,0 +1,14 @@
+.root {
+  -fx-red: red;
+  -fx-blue: blue;
+  
+  -fx-aqua: aqua;
+  -fx-gold: gold;
+  -fx-darkorange: darkorange;
+  -fx-darksalmon: darksalmon;
+  -fx-lawngreen: lawngreen;
+  -fx-plum: plum;
+}
+
+.default-color0.chart-bar { -fx-bar-fill: -fx-red; }
+.default-color1.chart-bar { -fx-bar-fill: -fx-blue; }
